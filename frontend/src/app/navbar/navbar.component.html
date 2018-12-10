@@ -1,0 +1,93 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)!.matches"
+      *ngIf="getShowMenu()">
+      <mat-toolbar color="primary">Menu</mat-toolbar>
+      <mat-nav-list>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="expandChangesPainel = true"
+                              (closed)="expandChangesPainel = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>           
+              <span style="font-style: italic;font-weight: 500;">{{ name }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a mat-list-item routerLink="/user/"  (click)="userDetails()">Perfil</a>
+          <a mat-list-item (click)="logout()">Sair</a> 
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="expandChangesPainel = true"
+                              (closed)="expandChangesPainel = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Regras         
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <a mat-list-item (click)="addInconsistency()">Adicionar</a> 
+            <a mat-list-item routerLink="/rules/rulesAll" >Pesquisar</a>              
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+          <mat-expansion-panel (opened)="expandChangesPainel = true"
+                                (closed)="expandChangesPainel = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Texto         
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <a mat-list-item routerLink="/texts/new" >Nova revisão</a>
+              <a mat-list-item routerLink="/texts/text-historic" >Histórico de revisões</a>
+              <a mat-list-item routerLink="/texts/text-shared-with-me" >Compartilhados comigo</a>
+            
+            </mat-expansion-panel>
+          </mat-accordion>
+        
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span fxFlex="100%" *ngIf="!getShowMenu()">Text Review System - Um sistema colaborativo para revisão de texto</span>
+        <span fxFlex="100%" *ngIf="getShowMenu()">TRS - Um sistema colaborativo para revisão de texto</span>
+        <!--div class="tooltip">Teste
+          <span class="tooltiptext">Tooltip text</span>
+        </div-->
+      <div  
+              *ngIf="getShowMenu()"
+              [style.display]="notifications.length>0 ? 'inherit' : 'none'"
+              matTooltip="Você tem notificações"
+              (click)="showNotifications()"
+              style="display: inline-flex; margin-right: 10px;">
+          <mat-icon class="mouse-cursor-pointer" matSuffix>{{ 'notifications' }}</mat-icon>
+          <div id="notifications-circle" [style.display]="notifications.length>0 ? 'initial' : 'hidden'">
+            <span style="font-size: 12px"> {{ notifications.length }} </span>   
+          </div>
+        </div>
+        <button mat-button [matMenuTriggerFor]="menu" yPosition="below" id="button-person" *ngIf="getShowMenu()">
+            <mat-icon class="mouse-cursor-pointer" matSuffix>{{ 'person' }}</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <div id="user-info">
+                <span><b>{{ name }}</b></span><br>
+                <span>{{ user.email }}</span>
+            </div>
+            <button style="width: 100% !important" mat-button color="primary" (click)="editUser()">Editar perfil</button>
+            <button style="width: 100% !important; color: white" mat-button (click)="logout()"> Sair</button>
+        </mat-menu>
+
+      </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>

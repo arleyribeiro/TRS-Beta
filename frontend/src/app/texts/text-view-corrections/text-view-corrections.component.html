@@ -1,0 +1,115 @@
+<app-text-loader *ngIf="showSpinner"></app-text-loader>
+<div fxLayout="row" style="margin-top: 10px">
+  <div fxFlex="100%">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="!panelOpenInfoText"
+                            (closed)="panelOpenInfoText"
+                            class="header-color">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Informações Gerais
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" style="margin-bottom: 10px">
+          <mat-card fxFlex="100%">
+            <div>
+              <div><span><i class="font-weight-size">Nome:</i> {{ dataText.name }}</span></div>
+              <div><span><i class="font-weight-size">Número de Revisões:</i> {{ totalRevisionNumber }}</span></div>
+              <div><span><i class="font-weight-size">Quantidade total de sugestões aplicadas no texto:</i> {{ totalSuggestionsApplied }} &nbsp; <button matTooltip="Ajuda" class="button-tip" mat-button color="primary" (click)="getTip($event,1)">?</button></span></div>
+              <div><span><i class="font-weight-size">Quantidade total de regras aplicadas:</i> {{ foundRulesNumber }} &nbsp; <button matTooltip="Ajuda" class="button-tip" mat-button color="primary" (click)="getTip($event,2)">?</button></span></div>
+              <div><span><i class="font-weight-size">Quantidade total de ocorrências:</i> {{ totalInconsistenciesFound }} &nbsp; <button matTooltip="Ajuda" class="button-tip" mat-button color="primary" (click)="getTip($event,3)">?</button></span></div>
+            </div>
+          </mat-card>
+        </div>
+        <div fxLayout="row">
+            <mat-accordion fxFlex>
+                <mat-expansion-panel (opened)="panelOpenInfoChanges"
+                                      (closed)="!panelOpenInfoChanges"
+                                      class="header-color">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Detalhes por Revisão
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <div class="mat-elevation-z8 container-shared-table" >
+                    <table mat-table [dataSource]="dataSource">
+                
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="revisionNumber">
+                        <th mat-header-cell *matHeaderCellDef> Revisão </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.revisionNumber }} </td>
+                      </ng-container>
+                    
+                      <!-- Weight Column -->
+                      <ng-container matColumnDef="appliedSuggestionsNumber">
+                        <th mat-header-cell *matHeaderCellDef> Sugestões aplicadas </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.appliedSuggestionsNumber }} </td>
+                      </ng-container>
+
+                      <!-- Weight Column -->
+                      <ng-container matColumnDef="foundInconsistenciesNumber">
+                        <th mat-header-cell *matHeaderCellDef> Quantidade de regras aplicadas </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.foundRulesNumber }} </td>
+                      </ng-container>
+
+                      <!-- Weight Column -->
+                      <ng-container matColumnDef="result">
+                        <th mat-header-cell *matHeaderCellDef> Total de Ocorrências </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.foundInconsistenciesNumber }} </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>                  
+                </mat-expansion-panel>
+              </mat-accordion>
+          
+        </div>     
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+<div fxLayout="col" style="background-color: purple" class="margin-top-10">
+  <div fxFlex="100%" style="background-color: yellow">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenText"
+                            (closed)="!panelOpenText"
+                            class="header-color">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Texto
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <textarea name="" id="text-corrections" readonly
+        >{{ dataText.text }}</textarea>
+        <!--p style="border: 1px solid lightgray">{{ dataText.text }}</p-->
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!--div fxFlex="100%" style="background-color: blue">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenInfoChanges"
+                            (closed)="!panelOpenInfoChanges">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Alterações Aplicadas no Texto
+          </mat-panel-title>
+          <mat-panel-description>
+            Currently I am {{panelOpenInfoChanges ? 'open' : 'closed'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div-->
+</div>
+

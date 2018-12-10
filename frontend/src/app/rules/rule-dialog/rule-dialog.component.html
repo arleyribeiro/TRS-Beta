@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ data.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{ data.content }}
+    <div [style.display]="data.type=='TEXT'  ? 'block' : 'none'">
+        <span><i>Na opção texto:</i> A busca será exatamente como o padrão fornecido.</span><br><br>
+        <i>Exemplo:</i><br>
+        <i>padrão de busca:</i> "este"<br><br>
+        <i>Texto verificado:</i> retornará todas as ocorrências <span style="background-color:yellow">do padrão</span> marcadas no texto.<br><br>
+        <i>Ocorrências:</i> <span style="background-color:yellow"> Este</span> texto será verificado automáticamente.
+    </div>
+
+    <div [style.display]="data.type=='ISREGEX'  ? 'block' : 'none'">
+        <span><i>Na opção Expressão regular:</i> A busca será de acordo com a expressão fornecida.</span><br><br>
+        <i>Exemplo:</i> Procurar por palavras que terminam com 'mente'<br><br>
+        <i>padrão de busca:</i> "[a-zA-Z]+mente"<br><br>
+        <i>Texto verificado:</i> retornará todas as ocorrências <span style="background-color:yellow">do padrão</span> marcadas no texto.<br><br>
+        <i>Ocorrências:</i> A partida terminou <span style="background-color:yellow">antecipademente</span> devido aos problemas com iluminação.
+    </div>
+
+    <div [style.display]="data.type=='REGEX'  ? 'block' : 'none'">
+        <span><i>Expressão regular - caracteres livres:</i> A busca será por qualquer caractere que seja associado a expressão fornecida.</span><br><br>
+        <i>Exemplo:</i> Procurar por palavras que contêm 'mente'<br><br>
+        <i>padrão de busca:</i> "[a-zA-Z]+mente"<br><br>
+        <i>Texto verificado:</i> retornará todas as ocorrências <span style="background-color:yellow">do padrão</span> marcadas no texto.<br><br>
+        <i>Ocorrências:</i> A partida terminou antecipade<span style="background-color:yellow">mente</span> devido aos problemas com iluminação.
+    </div>
+
+    <div [style.display]="data.type=='REGEX2'  ? 'block' : 'none'">
+        <span>Esta opção é muito semelhante com a busca do tipo texto, a diferença é que o texto associado à uma expressão regular são somente digítos e caracteres presentes no alfabeto.</span> <br><br>
+        <span><i>Expressão regular - texto ou digítos:</i> A busca será por qualquer padrão que possua apenas caracteres do alfabeto ou números</span><br><br>
+        <i>Exemplo:</i> Procurar por palavras que contêm 'mente'<br><br>
+        <i>padrão de busca:</i> "\b[a-zA-Z]+mente\b"<br><br>
+        <i>Texto verificado:</i> retornará todas as ocorrências <span style="background-color:yellow">do padrão</span> marcadas no texto.<br><br>
+        <i>Ocorrências:</i> A partida terminou <span style="background-color:yellow">antecipademente</span> devido aos problemas com iluminação.
+    </div>
+
+    <div [style.display]="data.type=='VISIBILITY'  ? 'block' : 'none'">
+        <span>A visibilidade de uma regra permite compartilhar a regra com outros usuários.</span> <br>
+    </div>
+    <div [style.display]="data.type=='VISIBILITY_PUBLIC'  ? 'block' : 'none'">
+        <span>Uma regra com visibilidade pública pode ser utilizada na revisão de texto por outros usuários.</span> <br>
+    </div>
+    <div [style.display]="data.type=='VISIBILITY_PRIVATE'  ? 'block' : 'none'">
+        <span>Uma regra com visibilidade privada é utilizada apenas na revisão de texto do propretário da regra.</span> <br>
+    </div>
+
+    <div [style.display]="data.type=='ADD_RULE'  ? 'block' : 'none'">
+        <span>Uma regra é um padrão que será procurado no texto.</span> <br>
+    </div>
+
+    <div [style.display]="data.type=='VERIFY'  ? 'block' : 'none'">
+        O padrão de busca pode ser feito de duas formas, sendo eles:<br><br>
+        <i>Texto:</i> Procura por padrões no texto que são exatamente iguais à regra inserida.<br><br>
+        <i>Expressão Regular:</i> Procura por padrões no texto que serão associados à expressão regular inserida na regra.<br>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+      <button color="primary" mat-button [mat-dialog-close]="true"> {{ data.buttonConfirm }}</button>
+      <button color="primary" mat-button [mat-dialog-close]="false">{{ data.buttonCancel }}</button>
+  </mat-card-actions>
+</mat-card>

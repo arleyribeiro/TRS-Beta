@@ -1,0 +1,23 @@
+.container-shared-table {
+    overflow: auto;
+    max-height: 400px;
+    margin-top: 10px;
+}
+
+#boxSuggestion {
+    padding: 10px;
+    margin: 2px;
+    display: inline-flex;
+    word-break: break-all;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+#positionRight {
+    float: right;
+    margin-top: 20px;
+}

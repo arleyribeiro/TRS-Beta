@@ -1,0 +1,57 @@
+<app-loader *ngIf="showSpinner"></app-loader>
+<mat-card class="header-color example-container">
+    <mat-card-header>
+        <mat-card-title>Criar conta</mat-card-title>
+    </mat-card-header>
+ <form class="example-container" [formGroup]="formUser" (ngSubmit)="onSubmit()">  
+    <div fxLayout="col">
+        <mat-form-field fxFlex="100%">
+            <input matInput maxlength="50" placeholder="Nome de usuário" formControlName="username">
+            <mat-error *ngIf="formUser.get('username').invalid">O nome de usuário não pode ser nulo!</mat-error>
+        </mat-form-field>
+        <div>&nbsp;&nbsp;&nbsp;</div>
+        <mat-form-field fxFlex="100%">
+            <input matInput maxlength="50" placeholder="Primeiro nome" formControlName="first_name">
+            <mat-error *ngIf="formUser.get('first_name').invalid">Nome não pode ser nulo!</mat-error>
+        </mat-form-field>
+        <div>&nbsp;&nbsp;&nbsp;</div>
+        <mat-form-field fxFlex="100%">
+            <input matInput maxlength="50" placeholder="Sobrenome" formControlName="last_name">
+            <mat-error *ngIf="formUser.get('last_name').invalid">Sobrenome não pode ser nulo!</mat-error>
+        </mat-form-field>
+    </div>
+    <div *ngIf="error?.username" class="alert mat-error">{{ error?.username[0] | capitalize }}</div>
+    <mat-form-field>
+      <input matInput maxlength="255" placeholder="a@a.com"  formControlName="email">
+      <mat-error *ngIf="formUser.get('email').invalid">E-mail inválido!</mat-error>
+    </mat-form-field>
+    <div *ngIf="error?.email" class="alert mat-error">{{ error?.email[0] | capitalize }}</div>
+    <mat-list>
+        <h3 mat-subheader>Perfil</h3>
+        <mat-radio-group  class="radio-group" formControlName="role" [value]="formUser.get('role').value">
+            <mat-radio-button value="1" [checked]="formUser.get('role').value == 1">Estudante</mat-radio-button>
+            <mat-radio-button value="2" [checked]="formUser.get('role').value == 2">Professor(a)</mat-radio-button>
+        </mat-radio-group>
+
+    </mat-list>
+    <div fxLayout="col" style="margin-top: 10px">
+        <mat-form-field fxFlex="100%">
+            <input matInput maxlength="50" placeholder="Senha" type="password" formControlName="password" minlength="6">
+            <mat-error *ngIf="formUser.get('password').invalid">A senha deve conter no mínimo 6 dígitos</mat-error>
+        </mat-form-field>
+        <div>&nbsp;&nbsp;&nbsp;</div>
+        <mat-form-field fxFlex="100%">
+            <input matInput maxlength="50" placeholder="Repita a senha" type="password" formControlName="confirmPassword" minlength="6">
+            <!--mat-error *ngIf="formUser.get('confirmPassword').invalid"> {{ checkPasswords() }}</mat-error-->
+        </mat-form-field>
+    </div>
+    <div>
+        <div style="float: right" *ngIf="checkPasswords()" class="alert mat-error">As senhas são diferentes</div>
+    </div>
+    <mat-card-actions style="margin-left: 0px !important; margin-bottom: -25px;">
+        <div  style="float:right">
+            <button mat-raised-button color="primary" type="submit" [disabled]="disabled()">Enviar</button>
+        </div>
+    </mat-card-actions>   
+  </form>
+</mat-card>

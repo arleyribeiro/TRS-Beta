@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+}
+.container-shared-table {
+  max-height: 400px;
+  overflow: auto;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+#boxSuggestion {
+  padding: 10px;
+  margin: 2px;
+  display: inline-flex;
+  word-break: break-all;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#boxCards {
+  padding: 10px;
+  margin: 2px;
+  display: inline-flex;
+  word-break: break-all;
+  border-radius: 5px;
+}
+
+#text-corrections {
+  width: 100%;
+  min-height: 600px
+}
+
+.button-tip {
+  border-radius: 50%;
+  min-width: 15px;
+  height: 15px;
+  padding: 0px;
+  border: solid 1px #3f51b5;
+  line-height: 0px;
+  font-size: 12px;
+}
+
+.font-weight-size {
+  font-weight: 450;
+  font-size: 16px;
+}

@@ -1,0 +1,13 @@
+.container-shared-table {
+    overflow: auto;
+    max-height: 500px;
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+}
+/*
+td.mat-cell, th.mat-header-cell {
+    padding: 5px !important;
+}*/

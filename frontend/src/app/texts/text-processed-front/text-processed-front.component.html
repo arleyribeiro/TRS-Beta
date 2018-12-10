@@ -1,0 +1,21 @@
+<form [formGroup]="">
+    <div fxLayout="row">
+      <mat-card fxFlex="checkText ? 100% : 50%">
+        <div id="correctionText">
+          <span>
+            {{data}}
+          </span>
+        </div>
+      </mat-card>
+      <mat-card fxFlex="50%">
+        <div id="correctionHistoric"></div>
+          <mat-card-actions id="formButtons">
+              <button mat-raised-button color="primary" >Salvar</button>
+              <button mat-stroked-button color="primary">Voltar</button>
+          </mat-card-actions>
+        </mat-card>
+    </div>
+</form>
+
+  
+  

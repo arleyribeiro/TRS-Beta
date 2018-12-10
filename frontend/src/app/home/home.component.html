@@ -1,0 +1,72 @@
+<div style="background-color: white" fxLayout="col">
+  <div style="background-color: white"  fxFlex="100%">
+    <h2 style="color: #3f51b5; font-family: Roboto">Revise um texto em 4 passos</h2>
+    <mat-vertical-stepper [linear]="isLinear" #stepper>
+      <mat-step >
+        <form >
+          <ng-template matStepLabel>Registre-se no TRS e comece a revisar o seu texto.</ng-template>
+          <div>
+            É rápido e simples, preencha o formulário abaixo.
+          </div>
+          <div>
+            <button mat-button color="primary" matStepperNext>Próximo
+              <mat-icon matSuffix>{{ 'navigate_next' }}</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>          
+      <mat-step >
+          <form >
+            <ng-template matStepLabel>Personalize as regras de revisão.</ng-template>
+            <div>
+              Você pode personalizar o conjuto de regras para revisão.
+            </div>
+            <div>
+              <button mat-button color="primary" matStepperPrevious>
+                <mat-icon matSuffix>{{ 'navigate_before' }}</mat-icon>Anterior                  
+              </button>
+              <button mat-button color="primary" matStepperNext>Próximo
+                  <mat-icon matSuffix>{{ 'navigate_next' }}</mat-icon>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step >
+          <form >
+            <ng-template matStepLabel>Corrija as sugestões sugeridas.</ng-template>
+            <div>
+                Após a revisão, o sistema pode sugerir sugestões de substituição para o seu texto. A sugestão pode ser inserida ou ignorada na revisão do seu texto.
+              </div>
+            <div>
+              <button mat-button color="primary" matStepperPrevious>
+                <mat-icon matSuffix>{{ 'navigate_before' }}</mat-icon>Anterior
+              </button>
+              <button mat-button color="primary" matStepperNext>Próximo
+                  <mat-icon matSuffix>{{ 'navigate_next' }}</mat-icon>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Salve e compartilhe sua revisão.</ng-template>
+          Você terminou sua revisão, salve e compartilhe com outros usuários.
+          <div>
+            <button mat-button color="primary" matStepperPrevious>
+              <mat-icon matSuffix>{{ 'navigate_before' }}</mat-icon>Anterior
+            </button>
+            <button mat-button color="primary" (click)="stepper.reset()">Reiniciar
+                <mat-icon matSuffix>{{ 'autorenew' }}</mat-icon>
+            </button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>  
+    </div>
+    <div style="background-color: white"  fxFlex="100%">
+      <div style="background-color: white; margin-bottom: 10px">
+        <app-login></app-login>
+    </div>
+    <div style="background-color: white">
+      <app-registration></app-registration>
+    </div>
+  </div>
+</div>

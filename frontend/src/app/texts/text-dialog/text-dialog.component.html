@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ data.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{ data.content }}
+    <div [style.display]="data.type=='TOTAL_SUGGESTIONS_APPLIED'  ? 'block' : 'none'">
+        <p class="text-align">
+            A quantidade total de sugestões aplicadas no texto representa o número de alterações que foram realizadas.
+        </p>
+    </div>
+
+    <div [style.display]="data.type=='FOUND_RULES_NUMBER'  ? 'block' : 'none'">
+        <p class="text-align">
+            A quantidade total de regras aplicadas no texto representa o número de regras que foram ativadas na revisão.
+        </p>
+    </div>
+
+    <div [style.display]="data.type=='TOTAL_INCONSISTENCIES_FOUND'  ? 'block' : 'none'">
+        <p class="text-align">
+            A quantidade total de inconsitências representa o número de vezes que uma ou mais regras foram encontradas no texto.
+        </p>
+        <div>
+            <span>Exemplo:</span><br>
+            Duas regras foram aplicadas no texto, porém, foram encontradas 7 ocorrências.
+        </div>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <button color="primary" mat-button [mat-dialog-close]="true"> {{ data.buttonConfirm }}</button>
+      <button color="primary" mat-button [mat-dialog-close]="false">{{ data.buttonCancel }}</button>
+  </mat-card-actions>
+</mat-card>

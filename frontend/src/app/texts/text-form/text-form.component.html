@@ -1,0 +1,21 @@
+<app-text-loader *ngIf="showSpinner"></app-text-loader>
+<form [formGroup]="formText">
+  <div fxLayout="row">
+    <mat-card fxFlex="applyConfigurations ? 100% : 50%" class="header-color" style="margin-right: 10px;">
+        <div fxLayout="col">
+            <mat-card-title style="width: 85%;">Texto para revisão</mat-card-title>
+            <button matTooltip="Configuração da revisão" style="float: right; margin-top: -16px; height: 36px; padding-right: 4%;" mat-button color="primary" (click)="openConfiguration()">
+              Configuração da revisão
+              <mat-icon matSuffix> {{ 'settings' }}</mat-icon>
+            </button>
+          </div>
+      <textarea  id="checkText" maxlength="5000" formControlName="content" placeholder="Insira seu texto aqui"></textarea>
+      <mat-card-actions id="formButtons">
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="disabledSubmit()">Enviar texto</button>
+      </mat-card-actions>
+    </mat-card>
+    <div fxFlex="50%" [style.display]="!applyConfigurations?'block':'none'">
+      <app-text-filter-by-users></app-text-filter-by-users>
+    </div>
+  </div>
+</form>

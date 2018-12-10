@@ -1,0 +1,21 @@
+<app-loader *ngIf="showSpinner"></app-loader>
+<mat-card class="example-container header-color">
+  <mat-card-header>
+    <mat-card-title id="mat-card-title"> Entrar</mat-card-title>
+  </mat-card-header>
+  <div *ngIf="error?.email || error?.non_field_errors" class="alert mat-error">E-mail ou senha inválidos</div>
+  <mat-form-field>
+    <input matInput placeholder="E-mail" [(ngModel)]="user.email">
+  </mat-form-field>
+  <div *ngIf="error?.email" class="alert mat-error"> {{ error?.email[0] | capitalize }}</div>
+  <mat-form-field>
+    <input matInput placeholder="Senha" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password">
+    <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+  </mat-form-field>
+  <mat-card-actions style="width:100%; margin-left: 0px !important;">
+    <div  style="float:right !important">
+      <button mat-raised-button color="primary" (click)="doLogin()">Login</button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+

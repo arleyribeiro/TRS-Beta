@@ -1,0 +1,74 @@
+form {
+    /*display: flex;*/
+     flex-direction: row;
+     display: grid;
+ }
+ 
+ #correctionHistoric, #correctionText {
+     width: 100%;
+     border: lightgray 1px solid;
+ }
+ 
+ #formButtons {
+     float: right;
+     margin-left: 1.2px;
+ }
+ 
+ #formButtons button {
+     margin-right: 5px; 
+ }
+
+ .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    /*width: 150px;*/
+    background-color: #a0c3f8;
+    color: rgb(4, 62, 121);
+    text-align: center;
+    border-radius: 6px;
+    border: solid 1px #a0c3f8;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -16px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 10%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #a0c3f8 transparent;
+}
+
+.tooltiptext button{
+    width: 100%
+}
+
+.ignoreSuggestion {
+    background: linear-gradient(to top,  #FFFFFF 36px, #a0c3f8 36px) !important;
+}
+
+.mat-card-title-no-margin-bottom {
+    margin-bottom: 0px;
+    align-self: center;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+.mat-card, .mat-expansion-panel {
+    margin: 5px;
+}

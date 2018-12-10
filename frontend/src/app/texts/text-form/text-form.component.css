@@ -1,0 +1,20 @@
+form {
+   /*display: flex;*/
+    flex-direction: row;
+}
+
+#checkText, #correctionText {
+    width: 100%;
+    min-height: 300px;
+    border: lightgray 1px solid;
+}
+
+#formButtons {
+    float: right;
+    margin-left: 1.2px;
+}
+
+#formButtons button {
+    margin-right: 5px; 
+}
+

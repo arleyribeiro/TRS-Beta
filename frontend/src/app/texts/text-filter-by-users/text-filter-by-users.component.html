@@ -1,0 +1,60 @@
+<app-text-loader *ngIf="showSpinner"></app-text-loader>
+<mat-card>
+<div>
+  <p style="text-align: justify">
+      A ferramenta permite ao usuário alterar as configurações padrão de revisão do texto.
+      
+      Na revisão padrão, todas as regras do usuário 'admin' são aplicadas no texto. Ao adicionar um novo usuário na configuração, todas as regras inseridas por ele serão aplicadas na revisão do texto. Além disso, é possível personalizar o conjunto de todas as regras selecionadas, removendo aquelas que não são apropriadas ao seu contexto de revisão.
+  </p>
+  <ol>
+    <li>Padrão: Todas as regras do usuário 'admin'.</li>
+    <li>Regras por usuários: Todas as regras dos usuários selecionados.</li>
+    <li>Personalizar conjunto de regras do usuário: Selecionar regras apropriadas ao seu contexto de revisão.</li>
+  </ol>
+</div>
+<div fxLayout="col" fxLayoutAlign="start center" class="boxButtons">
+  <mat-form-field fxFlex="100%">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+    <mat-icon matTooltip="Buscar" class="mouse-cursor-pointer" matSuffix>{{ 'search' }}</mat-icon>
+  </mat-form-field>
+</div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 container-shared-table">
+    
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+  
+  <!-- Position Column -->
+  <ng-container matColumnDef="first_name">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+  </ng-container>
+  
+  <!-- Position Column -->
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef width="100px"> Perfil </th>
+    <td mat-cell *matCellDef="let element"> {{element.role == 1 ? 'Estudante' : 'Professor(a)'}} </td>
+  </ng-container>
+   
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-card-actions>
+  <div style="min-height: 35px;  margin-right: 15px;">
+    <button mat-raised-button color="primary" (click)="onSubmit()" style="float: right;">Aplicar</button>
+  </div>
+</mat-card-actions>
+</mat-card>

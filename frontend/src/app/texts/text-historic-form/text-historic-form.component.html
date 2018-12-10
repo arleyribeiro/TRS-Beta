@@ -1,0 +1,19 @@
+<div class="header-color-primary" style="padding: 23px;">
+<mat-card-header>
+    <mat-card-title>Salvar revisão</mat-card-title>
+  </mat-card-header>
+<form [formGroup]="formHistoryChangesText" class="example-container">
+  <mat-form-field>
+      <input matInput placeholder="Nome" maxlength="100" formControlName="name" [value]="formHistoryChangesText.get('name').value">
+      <mat-error *ngIf="formHistoryChangesText.get('name').invalid">Nome não pode ser nulo.</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Descrição" maxlength="500" formControlName="description" [value]="formHistoryChangesText.get('description').value"></textarea>
+    <mat-error *ngIf="formHistoryChangesText.get('description').invalid">A descrição não pode ser nula.</mat-error>
+  </mat-form-field>
+</form>
+<mat-card-actions id="formButtons">
+  <button mat-raised-button color="primary" type="submit" [disabled]="disabledSubmit()" [mat-dialog-close]="formHistoryChangesText.value">Salvar</button>
+  <button mat-button color="primary"  [mat-dialog-close]="false">Cancelar</button>
+</mat-card-actions>
+</div>

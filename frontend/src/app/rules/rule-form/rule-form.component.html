@@ -1,0 +1,106 @@
+<div style="padding: 20px" class="header-color-primary">
+<div style="color: white;">
+  <mat-card-title style="color: white;" *ngIf="!editMode">Adicionar regra de verificação &nbsp;  <button id="add-rule" matTooltip="Dicas" class="button-tip" mat-button (click)="getTip($event,9)">?</button></mat-card-title>
+  <mat-card-title style="color: white;" *ngIf="editMode">Editar regra de verificação &nbsp;  </mat-card-title>
+
+  <mat-icon matTooltip="Fechar" class="mouse-cursor-pointer"  style="float: right; margin-top: -42px;" matSuffix  (click)="closeModal()">{{ 'close' }}</mat-icon>     
+</div>
+<div fxLayout="row">
+  <mat-card  fxFlex="!suggestions.length ? 100% : 65%" >
+    <div class="example-container" [formGroup]="formInconsistency" >
+      <mat-form-field>
+        <input matInput placeholder="Nome da regra (exemplo: Uso do 'este')" maxlength="50" formControlName="name">
+        <mat-error *ngIf="formInconsistency.get('name').invalid">Nome de usuário não pode ser nulo.</mat-error>
+        <mat-error *ngIf="error.name">O nome dever conter no máximo 50 caracteres.</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput placeholder="Descrição" formControlName="description" maxlength="500"></textarea>
+        <mat-error *ngIf="formInconsistency.get('description').invalid">A descrição não pode ser nula.</mat-error>
+      </mat-form-field>
+      <div fxLayout="col">
+        <!--div fxFlex="50%">            
+          <mat-list>
+            <label mat-subheader>Tipo de verificação &nbsp;<button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,1)">?</button></label>
+            <mat-radio-group class="radio-group" formControlName="isRegex" [value]="formInconsistency.get('isRegex').value">
+              <mat-radio-button value="false" [checked]="formInconsistency.get('isRegex').value == false" (click)="formInconsistency.get('regexType').setValue(3)">Texto <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,2)">?</button></mat-radio-button>
+              <div>
+                <mat-radio-button value="true"  [checked]="formInconsistency.get('isRegex').value == true" >Expressão regular <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,3)">?</button></mat-radio-button>
+                <mat-radio-group id="radio-regex-type" class="radio-group"
+                              fxLayout="column"
+                              formControlName="regexType"
+                              [value]="formInconsistency.get('regexType').value"
+                              [style.display]="(formInconsistency.get('isRegex').value == true || formInconsistency.get('isRegex').value == 'true')  ? 'flex' : 'none'">
+                <mat-radio-button value="1" [checked]="formInconsistency.get('regexType').value == 1">Expressão regular - caracteres livres <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,4)">?</button></mat-radio-button>
+                <mat-radio-button value="2" [checked]="formInconsistency.get('regexType').value == 2">Expressão regular para texto ou dígitos  <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,5)">?</button></mat-radio-button>
+              </mat-radio-group>
+              </div>
+            </mat-radio-group>
+          </mat-list>
+        </div-->
+        <div fxFlex="50%">            
+          <mat-list>
+            <label mat-subheader>Tipo de verificação &nbsp;<button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,1)">?</button></label>
+            <mat-radio-group class="radio-group" formControlName="regexType" [value]="formInconsistency.get('regexType').value">
+              <mat-radio-button value="3" [checked]="formInconsistency.get('regexType').value == 3" (click)="formInconsistency.get('isRegex').setValue(false)">Texto <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,2)">?</button></mat-radio-button>
+              <div>
+                <mat-radio-button value="2"  [checked]="formInconsistency.get('regexType').value == 2" (click)="formInconsistency.get('isRegex').setValue(true)">Expressão regular <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,3)">?</button></mat-radio-button>
+                <div [style.display]="(formInconsistency.get('isRegex').value == true || formInconsistency.get('isRegex').value == 'true')  ? 'flex' : 'none'">
+                  <mat-radio-button value="1" [checked]="formInconsistency.get('regexType').value == 1">Expressão regular - caracteres livres <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,4)">?</button></mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+          </mat-list>
+        </div>
+        <div fxFlex="50%" *ngIf="!(formInconsistency.get('isRegex').value == true || formInconsistency.get('isRegex').value == 'true')">
+          <mat-form-field id="pattern">
+            <input matInput maxlength="100" placeholder="Procurar no texto por: (exemplo: este)" formControlName="pattern" >
+            <mat-error *ngIf="formInconsistency.get('pattern').invalid">O padrão da regra de verificação não pode ser nulo.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" *ngIf="(formInconsistency.get('isRegex').value == true || formInconsistency.get('isRegex').value == 'true')">
+            <mat-form-field id="pattern">
+              <input matInput maxlength="100" placeholder="Procurar no texto por: (palavras que terminam com 'mente': '[a-zA-Z]+mente')" formControlName="pattern" >
+              <mat-error *ngIf="formInconsistency.get('pattern').invalid">O padrão da regra de verificação não pode ser nulo.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex="100%" >
+            <input matInput maxlength="200" placeholder="Sugestão de substituição" (keydown.enter)="onEnterKey()" [(ngModel)]="tip" [ngModelOptions]="{standalone: true}">
+            <mat-error *ngIf="formInconsistency.get('suggestions').invalid">A sugestão não pode ser nula.</mat-error>
+          </mat-form-field>
+          <button mat-button color="primary" style="height: 48px !important;" (click)="addSuggestion()">
+            Adicionar
+          </button>
+        </div>
+
+        <mat-list>
+          <label mat-subheader>Visibilidade da regra &nbsp; <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,6)">?</button></label>
+          <mat-radio-group class="radio-group" formControlName="type" [value]="formInconsistency.get('type').value">
+            <mat-radio-button value="1" [checked]="formInconsistency.get('type').value == 1" (click)="formInconsistency.get('type').setValue(1)">Pública  <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,7)">?</button></mat-radio-button>
+            <mat-radio-button value="2" [checked]="formInconsistency.get('type').value == 2" (click)="formInconsistency.get('type').setValue(2)">Privada  <button matTooltip="Dicas" class="button-tip" mat-button color="primary" (click)="getTip($event,8)">?</button></mat-radio-button>
+          </mat-radio-group>
+        </mat-list>       
+      </div>
+    </mat-card>
+    <mat-card fxFlex="35%" *ngIf="!(suggestions.length==0)">
+      <mat-card-header>
+        <mat-card-title style="color: #3f51b5">
+          {{ suggestions.length == 1 ? 'Sugestão de substituição' : 'Sugestões de substituição' }}
+        </mat-card-title>
+      </mat-card-header>
+      <div *ngFor="let item of suggestions;let idx = index" id="boxSuggestion">
+        {{ item.tip }} 
+        <mat-icon matTooltip="Excluir" class="mouse-cursor-pointer" matSuffix (click)="removeSuggestion(idx)">{{ 'delete' }}</mat-icon>      
+      </div>
+    </mat-card>  
+</div>  
+<mat-card-actions id="mat-card-buttons">
+  <div style="float:right">
+    <button mat-raised-button color="primary" (click)="onSubmit()"  [disabled]="formInconsistency.invalid">Adicionar</button>
+    <button mat-button color="primary" mat-dialog-close>Cancelar</button>
+  </div>
+</mat-card-actions>
+</div>

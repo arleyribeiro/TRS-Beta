@@ -1,0 +1,37 @@
+<mat-card class="header-color-primary">
+  <mat-card-header>
+    <mat-card-title>Compartilhar texto com outras pessoas</mat-card-title>
+  </mat-card-header>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text"
+            placeholder="Nome ou E-mail" 
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async; let idx = index" 
+                    [value]="option.first_name +' ' + option.last_name + ' <' + option.email + '>'"
+                    (click)="getUserEmail(option)">
+          {{ option.first_name +' ' + option.last_name + ' <' + option.email + '>' }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-card [style.display]="filteredUsers.length>0 ? 'block' : 'none'">
+      <div>
+        <div *ngFor="let item of filteredUsers;let idx = index" id="boxSuggestion" matTooltip="Remover">
+          {{ item.first_name + ' ' + item.last_name }}  
+          <mat-icon class="mouse-cursor-pointer" matSuffix (click)="removeEmailUser(idx)">{{ 'close' }}</mat-icon>      
+        </div>
+      </div>
+    </mat-card>
+    <mat-card-actions>
+      <div style="float: right;">
+          <button mat-raised-button color=primary [mat-dialog-close]="userIds" [disabled]="userIds.length == 0" (click)="postSharedTextSelected()">Compartilhar</button>
+          <button mat-button color=primary [mat-dialog-close]=[]>Cancelar</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
+
+

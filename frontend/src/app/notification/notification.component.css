@@ -1,0 +1,20 @@
+.container-shared-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+table {
+    width: 100%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+#icon-close {
+    color: white !important;
+}
+
+#notification-title {
+    margin-left: 10px;
+}

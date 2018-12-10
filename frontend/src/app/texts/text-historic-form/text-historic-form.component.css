@@ -1,0 +1,14 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+#formButtons {
+    float: right;
+    margin-left: 1.2px;
+}
+
+#formButtons button {
+    margin-right: 5px; 
+}

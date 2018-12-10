@@ -1,0 +1,116 @@
+<app-text-loader *ngIf="showSpinner"></app-text-loader>
+<form [formGroup]="formText">
+  <div fxLayout="row">
+    <mat-card fxFlex="checkText ? 100% : 50%" class="header-color">
+      <!--button (click)="editTextP()">Editar texto</button-->
+      <div fxLayout="col">
+        <mat-card-title style="width: 75%;">Texto verificado</mat-card-title>
+        <button style="float: right; margin-top: -16px; height: 36px;" 
+                mat-button color="primary" 
+                (click)="resubmitText()"
+                [style.display]="data.matches == null ? 'none' : 'block'">Verificar novamente
+          <mat-icon matSuffix class="mouse-cursor-pointer">{{ 'replay' }}</mat-icon>
+        </button>
+      </div>
+      <div id="correctionText" contenteditable="false">
+        <span *ngFor="let item of data.matches; let idx = index"
+              id="{{ item.start}}{{ item.end }}"
+              [ngClass]="(item.match) ? 'tooltip' : 'none'"
+              [style.background-color]="item.match ? '#FFFF00' : 'none'"
+              (click)="item.match ? openTips('div-'+item.start+''+item.end, item) : 'none'"
+              matTooltip="{{ item?.editNumber ? 'Alteração: ' + item.editNumber : '' }}"
+              (mouseleave)="(item.match && closeTooltip) ? closeTips('div-'+item.start+''+item.end) : 'none'">
+              
+              {{item.content}}
+          
+              <div class="tooltiptext ignoreSuggestion"
+                  id="div-{{ item.start}}{{ item.end }}"
+                  *ngIf="item.match && item.content!='\n'">
+            
+                <div *ngFor="let inconsistency of data.inconsistencies">
+                  <div *ngFor="let suggestion of inconsistency.suggestions">
+                    <button mat-button (click)="changeTip(item.start+''+item.end, suggestion, item, idx)"
+                            *ngIf="item?.inconsistency_id == suggestion.inconsistency_id">
+                      {{ suggestion.tip }}
+                    </button>
+                  </div>
+                </div>                
+                <button mat-button (click)="ignoreSuggestion(item, idx)">
+                  Ignorar Sugestão
+                </button>
+              </div>
+        </span>
+      </div>
+
+      <mat-card-actions id="formButtons">
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="data.matches == null">Salvar revisão</button>
+        <button mat-button color="primary"
+                [disabled]="sharedDisabled"
+                [style.display]="sharedDisabled ? 'none' : 'initial'"
+                (click)="postSharedTextSelected()">
+          Compartilhar revisão
+          <mat-icon matSuffix class="mouse-cursor-pointer"> {{ 'share' }}</mat-icon>
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+      <div fxFlex="50%">
+        <mat-card style="margin-bottom: 5px;"                  
+                  [ngClass]="hiddenElementNoSuggestion ? 'custom-card-suggestion' : 'none'"
+                  [style.border]="hiddenElementNoSuggestion ? '1px dotted #3f51b5' : 'none'"
+                  class="header-color">
+          <mat-card-title >{{ hiddenElementNoSuggestion ?   'Sugestão' : 'Sem marcação selecionada'}}</mat-card-title>
+          <div [style.display]="hiddenElementNoSuggestion ? 'none' : 'inherit'">
+            {{ existInconsistency() ? 'Clique em uma marcação (inconsistência) ou use a navegação para exibir as sugestões de substituição.' : 'Não há marcação para exibir sugestão de substituição.' }}
+          </div>
+          <div [style.display]="hiddenElementNoSuggestion ? 'inherit' : 'none'">
+            <div><span>Regra: </span> {{ inconsistencyDetails.name }}</div>
+            <br>
+            <div><span>Descrição: </span> {{ inconsistencyDetails.description }}</div>
+            <br>
+            <span>{{ inconsistencyDetails.suggestions?.length>1 ? 'Sugestões de substituição: ' : 'Sugestão de substituição: '}}</span>
+            <span *ngFor="let suggestion of inconsistencyDetails.suggestions; let idx = index" (click)="changeTipByCard(suggestion)">
+              <span mat-button *ngIf="inconsistencyDetails.id == suggestion.inconsistency_id">
+                <span *ngIf="idx>=1">, </span><span style="border-bottom: 1px dotted black;">{{ suggestion.tip }}</span>
+              </span>
+            </span>
+          </div>
+          <mat-card-actions  [style.display]="!existInconsistency()  ? 'none' : 'inherit'">
+            <button mat-button color="primary" (click)="previousSuggestion()">
+              <mat-icon class="mouse-cursor-pointer"  matSuffix>{{ 'navigate_before' }}</mat-icon>
+              Anterior
+            </button>
+            <button mat-button color="primary" (click)="nextSuggestion()">
+              Próxima
+              <mat-icon class="mouse-cursor-pointer"  class="mouse-cursor-pointer"  matSuffix>{{ 'navigate_next' }}</mat-icon>
+            </button>
+          </mat-card-actions>       
+        </mat-card>
+        <!--Card of applied edtions-->
+        <mat-accordion *ngIf="dataChangesInText.length!=0">
+            <mat-expansion-panel (opened)="expandChangesPainel = true"
+                                  (closed)="expandChangesPainel = false"
+                                  class="header-color">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="custom-painel-title">           
+                  {{ dataChangesInText.length > 1 ? 'Edições aplicadas no texto' : 'Edição aplicada no texto'}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-card-content>
+              <mat-card *ngFor="let item of dataChangesInText; let idx = index">
+                  <div *ngIf="!item.disabled">Edição número: {{ item.editNumber }}</div>
+                  <div>DE: {{item.oldText}}</div>
+                  <div>PARA: {{item.newText}}</div>
+                  <button mat-button color="primary"
+                    *ngIf="!item.disabled" 
+                    (click)="undoChange(item, idx)">Desfazer alteração 
+                  <mat-icon class="mouse-cursor-pointer"  matSuffix>{{ 'undo' }}</mat-icon>
+                </button>
+              </mat-card>                
+            </mat-card-content>
+            </mat-expansion-panel>
+          </mat-accordion>
+      </div>
+  </div>
+</form>

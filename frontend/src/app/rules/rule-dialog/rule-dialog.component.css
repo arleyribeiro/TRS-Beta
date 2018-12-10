@@ -1,0 +1,11 @@
+.mat-card-title {
+    color: #FFFFFF !important;
+}
+
+.mat-card {
+    background: linear-gradient(to bottom, #3f51b5 48px, white 48px) !important;
+}
+
+.box-buttons {
+    float: right !important;
+}
