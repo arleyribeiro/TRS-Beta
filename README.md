@@ -75,27 +75,27 @@ Em um terminal na pasta do projeto com o ambiente virtual configurado e ativado 
 
 ### Instalando o angular cli
 
-Atualizando o sistema (linux)
+### Atualizando o sistema (linux)
 
 `sudo apt update`
 
-Instalando o Node.js (8.11.3)
+### Instalando o Node.js (8.11.3)
 
 `sudo apt install nodejs`
 
-Instalando o npm para gerenciar os pacotes do Node.js
+### Instalando o npm para gerenciar os pacotes do Node.js
 
 `sudo apt install npm`
 
-Verificando a versão do Node.js
+### Verificando a versão do Node.js
 
 `nodejs -v`
 
-Verificando a versão do npm (6.1.0)
+### Verificando a versão do npm (6.1.0)
 
 `npm -v`
 
-Instalando o angular
+### Instalando o angular
 
 `npm install -g @angular/cli`
 
