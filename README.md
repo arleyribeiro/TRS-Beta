@@ -1,6 +1,8 @@
 # Text Review System - TRS
 O TRS é a implementação do meu trabalho de conclusão de curso, que teve como objetivo criar um sistema colaborativo para revisão de texto. Nesse sistema o usuário pode inserir regras para revisão sem a necessidade de saber programação e compartilhar regras e revisões com outros usuários.
 
+O projeto está hospedado em: [TRS Beta](http://tcc2trs.herokuapp.com/#/home) 
+
 ## Configuração do backend
 
 ### Intalar pip
