@@ -4,6 +4,7 @@ O TRS é a implementação do meu trabalho de conclusão de curso, que teve como
 O projeto está hospedado em: [TRS Beta](http://tcc2trs.herokuapp.com/#/home) 
 
 ## Configuração do backend
+Este trabalho foi desenvolvido usando o sistema operacional linux Mint e os comandos utilizando **sudo** funcionará nas distribuições Linux que usam o Aptitude como gerenciador de pacotes.
 
 ### Intalar pip
 
@@ -45,7 +46,7 @@ Para desativar o ambiente virtual, não importa o diretório que esteja, basta e
 `$ deactivate`
 
 
-### Clonado o repositório
+### Clonando o repositório
 
 Dentro do ambiente virtual, basta executar:
 
@@ -111,8 +112,8 @@ E em seguida execute o servidor do angular.
 
 `ng serve`
 
-reference: 'https://github.com/sauloantuness/liby'
+referência: 'https://github.com/sauloantuness/liby'
 
-reference: 'https://receitasdecodigo.com.br/ubuntu/como-instalar-o-node-js-no-ubuntu-18-04'
+referência: 'https://receitasdecodigo.com.br/ubuntu/como-instalar-o-node-js-no-ubuntu-18-04'
 
-reference: 'https://www.digitalocean.com/community/tutorials/como-instalar-o-node-js-no-ubuntu-16-04-pt'
+referência: 'https://www.digitalocean.com/community/tutorials/como-instalar-o-node-js-no-ubuntu-16-04-pt'
